@@ -9,10 +9,13 @@ class App extends Component {
     people: [
       {name: 'Max', age: 26},
       {name: 'Ann', age: 27},
-    ]
+    ],
+    showPeople: false
   }
 
-  switchNameHandler = (phase) => {
+  showPeopleHandler = () => {
+    const doesShow = this.state.showPeople;
+    this.setState({showPeople: !doesShow});
   }
 
 
@@ -27,16 +30,20 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Section 4</h1>
+        <h1>Section 4: conditionals</h1>
         <button style={style}
-          onClick={this.switchNameHandler}>Switch Name</button>
-        <Person
-          name={this.state.people[0].name}
-          age={this.state.people[0].age} />
-        <Person
-          name={this.state.people[1].name}
-          age={this.state.people[1].age} />
-
+          onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
+        {
+          this.state.showPeople ?
+            <div>
+              <Person
+                name={this.state.people[0].name}
+                age={this.state.people[0].age} />
+              <Person
+                name={this.state.people[1].name}
+                age={this.state.people[1].age} />
+            </div> : null
+        }
       </div>
     );
   }
