@@ -28,22 +28,26 @@ class App extends Component {
       cursor: 'pointer',
     };
 
+    let people = null;
+    if (this.state.showPeople) {
+      people = (
+        <div>
+          <Person
+            name={this.state.people[0].name}
+            age={this.state.people[0].age} />
+          <Person
+            name={this.state.people[1].name}
+            age={this.state.people[1].age} />
+        </div>);
+    }
+
     return (
       <div className="App">
         <h1>Section 4: conditionals</h1>
         <button style={style}
+          // cannot use block statements inside jsx code, only one-liners
           onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
-        {
-          this.state.showPeople ?
-            <div>
-              <Person
-                name={this.state.people[0].name}
-                age={this.state.people[0].age} />
-              <Person
-                name={this.state.people[1].name}
-                age={this.state.people[1].age} />
-            </div> : null
-        }
+        {people}
       </div>
     );
   }
