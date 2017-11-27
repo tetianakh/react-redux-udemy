@@ -9,6 +9,8 @@ class App extends Component {
     people: [
       {name: 'Max', age: 26},
       {name: 'Ann', age: 27},
+      {name: 'Stephan', age: 35},
+      {name: 'Mary', age: 16},
     ],
     showPeople: false
   }
@@ -31,19 +33,14 @@ class App extends Component {
     let people = null;
     if (this.state.showPeople) {
       people = (
-        <div>
-          <Person
-            name={this.state.people[0].name}
-            age={this.state.people[0].age} />
-          <Person
-            name={this.state.people[1].name}
-            age={this.state.people[1].age} />
-        </div>);
+        <div>{
+            this.state.people.map(person => <Person name={person.name} age={person.age} />)
+        }</div>);
     }
 
     return (
       <div className="App">
-        <h1>Section 4: conditionals</h1>
+        <h1>Section 4: lists</h1>
         <button style={style}
           // cannot use block statements inside jsx code, only one-liners
           onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
