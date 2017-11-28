@@ -20,6 +20,7 @@ class App extends Component {
     this.setState({showPeople: !doesShow});
   }
 
+
   deletePersonHandler = (personIndex) => {
     const people = [...this.state.people];
     people.splice(personIndex, 1);
@@ -36,16 +37,9 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid grey',
-      padding: '8px',
-      cursor: 'pointer',
-      color: 'green',
-    };
-
+    let buttonClass = '';
     let people = null;
+
     if (this.state.showPeople) {
       people = (
         <div>{
@@ -59,8 +53,7 @@ class App extends Component {
             }
           )
         }</div>);
-
-        style.color = 'red';
+        buttonClass = classes.Red;
     }
 
     const assignedClasses = []
@@ -75,7 +68,7 @@ class App extends Component {
       <div className={classes.App}>
         <h1>Section 5: styling</h1>
         <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button style={style}
+        <button className={buttonClass}
           onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
         {people}
       </div>
