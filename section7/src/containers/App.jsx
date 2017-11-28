@@ -5,6 +5,22 @@ import Cockpit from '../components/Cockpit/Cockpit.jsx'
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] inside constructor', props)
+  }
+
+  componentWillMount() {
+    console.log('[App.js] inside componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('[App.js] inside componentDidMount')
+  }
+
+  componentWillUnmount() {
+    console.log('[App.js] inside componentWillUnount')
+  }
 
   state = {
     people: [
@@ -37,6 +53,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] inside render')
     let people = null;
 
     if (this.state.showPeople) {
@@ -54,6 +71,7 @@ class App extends Component {
           showPeople={this.state.showPeople}
           peopleLength={this.state.people.length}
           clicked={this.showPeopleHandler}
+          appTitle={this.props.title}
           />
         {people}
       </div>
