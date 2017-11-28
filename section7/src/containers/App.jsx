@@ -22,6 +22,25 @@ class App extends Component {
     console.log('[App.js] inside componentWillUnount')
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    // DO: decide whether to continue or not
+    // DON'T: cause side effects
+    console.log('[UPDATE App.js] inside shouldComponentUpdate', nextProps, nextState)
+    return true;
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    // DO: Sync state to props
+    // DON'T: cause side effects
+    console.log('[UPDATE App.js] inside componentWillUpdate', nextProps, nextState)
+  }
+
+  componentDidUpdate () {
+    // DO: Cause side effects
+    // DON'T: update state (triggers re-render)
+    console.log('[UPDATE App.js] inside componentDidUpdate')
+  }
+
   state = {
     people: [
       {name: 'Max', age: 26, id:'djfhfs'},

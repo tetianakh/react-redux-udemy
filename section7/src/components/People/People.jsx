@@ -26,15 +26,21 @@ class People extends Component{
   }
 
   shouldComponentUpdate (nextProps, nextState) {
+    // DO: decide whether to continue or not
+    // DON'T: cause side effects
     console.log('[UPDATE People.js] inside shouldComponentUpdate', nextProps, nextState)
     return nextProps.people !== this.props.people;
   }
 
   componentWillUpdate (nextProps, nextState) {
+    // DO: Sync state to props
+    // DON'T: cause side effects
     console.log('[UPDATE People.js] inside componentWillUpdate', nextProps, nextState)
   }
 
   componentDidUpdate () {
+    // DO: Cause side effects
+    // DON'T: update state (triggers re-render)
     console.log('[UPDATE People.js] inside componentDidUpdate')
   }
 
