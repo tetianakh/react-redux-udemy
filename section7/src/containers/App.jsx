@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import People from '../components/People/People.jsx';
 import Cockpit from '../components/Cockpit/Cockpit.jsx'
 
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     console.log('[App.js] inside constructor', props)
@@ -22,12 +22,16 @@ class App extends Component {
     console.log('[App.js] inside componentWillUnount')
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    // DO: decide whether to continue or not
-    // DON'T: cause side effects
-    console.log('[UPDATE App.js] inside shouldComponentUpdate', nextProps, nextState)
-    return true;
-  }
+  // Using PureComponent is the same as checking if each of the props attributes changed
+  // or if any of the state attributes changed (analogous to the code below).
+  // caution: only does shallow comparison (reference).
+  //
+  // shouldComponentUpdate (nextProps, nextState) {
+  //   // DO: decide whether to continue or not
+  //   // DON'T: cause side effects
+  //   return nextState.people !== this.state.people ||
+  //   nextState.showPeople !== this.state.showPeople;
+  // }
 
   componentWillUpdate (nextProps, nextState) {
     // DO: Sync state to props
@@ -86,6 +90,7 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
+        <button onClick={ () => this.setState({ showPeople: true }) }/>
         <Cockpit
           showPeople={this.state.showPeople}
           peopleLength={this.state.people.length}

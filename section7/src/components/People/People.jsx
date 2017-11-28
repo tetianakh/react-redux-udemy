@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person/Person.jsx'
 
 
-class People extends Component{
+class People extends PureComponent{
 
   constructor(props) {
     super(props);
@@ -25,12 +25,18 @@ class People extends Component{
     console.log('[UPDATE People.js] inside componentWillReceiveProps', nextProps)
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    // DO: decide whether to continue or not
-    // DON'T: cause side effects
-    console.log('[UPDATE People.js] inside shouldComponentUpdate', nextProps, nextState)
-    return nextProps.people !== this.props.people;
-  }
+  // Using PureComponent is the same as checking if each of the props attributes changed
+  // or if any of the state attributes changed (analogous to the code below).
+  // caution: only does shallow comparison (reference).
+  //
+  // shouldComponentUpdate (nextProps, nextState) {
+  //   // DO: decide whether to continue or not
+  //   // DON'T: cause side effects
+  //   console.log('[UPDATE People.js] inside shouldComponentUpdate', nextProps, nextState)
+  //   return nextProps.people !== this.props.people ||
+  //     nextProps.clicked !== this.props.clicked ||
+  //     nextProps.changed !== this.props.changed;
+  // }
 
   componentWillUpdate (nextProps, nextState) {
     // DO: Sync state to props
