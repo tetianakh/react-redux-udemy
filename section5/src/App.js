@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Radium from 'radium';
+import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person.jsx';
 
@@ -82,14 +82,15 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <h1>Section 5: styling</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button style={style}
-          // cannot use block statements inside jsx code, only one-liners
-          onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
-        {people}
-      </div>
+      <StyleRoot> // must wrap the app into StyleRoot to use media queries or key frames
+        <div className="App">
+          <h1>Section 5: styling</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          <button style={style}
+            onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
+          {people}
+        </div>
+      </StyleRoot>
     );
   }
 }
