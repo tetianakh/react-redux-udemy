@@ -63,9 +63,18 @@ class App extends Component {
         style.color = 'red';
     }
 
+    const classes = []
+    if (this.state.people.length <= 2){
+      classes.push('red');
+    }
+    if (this.state.people.length <= 1){
+      classes.push('bold');
+    }
+
     return (
       <div className="App">
         <h1>Section 5: styling</h1>
+        <p className={classes.join(' ')}>This is really working!</p>
         <button style={style}
           // cannot use block statements inside jsx code, only one-liners
           onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
