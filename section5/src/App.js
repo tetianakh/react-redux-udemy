@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person.jsx';
 
@@ -44,10 +43,6 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer',
       color: 'green',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
     };
 
     let people = null;
@@ -66,11 +61,6 @@ class App extends Component {
         }</div>);
 
         style.color = 'red';
-        style[':hover'] = {
-          backgroundColor: 'salmon',
-          color: 'black'
-        }
-
     }
 
     const classes = []
@@ -82,17 +72,15 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot> // must wrap the app into StyleRoot to use media queries or key frames
-        <div className="App">
-          <h1>Section 5: styling</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
-          <button style={style}
-            onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
-          {people}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1>Section 5: styling</h1>
+        <p className={classes.join(' ')}>This is really working!</p>
+        <button style={style}
+          onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
+        {people}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
