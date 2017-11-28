@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from '../components/People/Person/Person.jsx';
+import People from '../components/People/People.jsx';
+import Cockpit from '../components/Cockpit/Cockpit.jsx'
 
 
 class App extends Component {
@@ -20,7 +21,6 @@ class App extends Component {
     this.setState({showPeople: !doesShow});
   }
 
-
   deletePersonHandler = (personIndex) => {
     const people = [...this.state.people];
     people.splice(personIndex, 1);
@@ -37,42 +37,28 @@ class App extends Component {
   }
 
   render() {
-    let buttonClass = '';
     let people = null;
 
     if (this.state.showPeople) {
       people = (
-        <div>{
-            this.state.people.map((person, index) => {
-              return <Person
-                key={person.id}
-                name={person.name}
-                age={person.age}
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-                click={() => this.deletePersonHandler(index)} />
-            }
-          )
-        }</div>);
-        buttonClass = classes.Red;
-    }
-
-    const assignedClasses = []
-    if (this.state.people.length <= 2){
-      assignedClasses.push( classes.red );
-    }
-    if (this.state.people.length <= 1){
-      assignedClasses.push( classes.bold );
+        <People
+          people={this.state.people}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}/>
+      );
     }
 
     return (
       <div className={classes.App}>
-        <h1>Section 7: Components</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button className={buttonClass}
-          onClick={this.showPeopleHandler}>{this.state.showPeople ? "Hide" : "Show"} People</button>
+        <Cockpit
+          showPeople={this.state.showPeople}
+          peopleLength={this.state.people.length}
+          clicked={this.showPeopleHandler}
+          />
         {people}
       </div>
     );
+
   }
 }
 
