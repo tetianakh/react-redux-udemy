@@ -17,6 +17,9 @@ class Person extends Component {
 
   componentDidMount() {
     console.log('[Person.js] inside componentDidMount')
+    if (this.props.position === 0){
+      this.inputElement.focus()
+    }
   }
 
   componentWillUnmount() {
@@ -28,7 +31,14 @@ class Person extends Component {
     return (
       <Aux>
         <p onClick={this.props.click}>{ this.props.name } is {this.props.age} years old.</p>
-        <input onChange={this.props.changed} defaultValue={this.props.name}></input>
+        <input
+          // ref is a special React property
+          // dont use it for styling etc, only for stuff like focusing, media playback etc
+          // this will create a new property when render() is executed
+          ref = {(inp) => { this.inputElement = inp}}
+          type="text" // type should have been here before, I forgot it
+          onChange={this.props.changed}
+          defaultValue={this.props.name} />
       </Aux>
     );
   }
