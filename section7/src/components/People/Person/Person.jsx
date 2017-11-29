@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import classes from './Person.css';
 import withClass from '../../../hoc/withClass.jsx';
 import Aux from '../../../hoc/Aux.jsx';
@@ -32,6 +34,13 @@ class Person extends Component {
   }
 }
 
-
+// will log a warning if types don't match
+// doesn't work with functional components
+Person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func,
+}
 
 export default withClass(Person, classes.Person);
