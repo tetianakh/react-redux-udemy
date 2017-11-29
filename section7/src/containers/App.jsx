@@ -53,12 +53,27 @@ class App extends PureComponent {
       {name: 'Stephan', age: 35, id:'ldyqodw'},
       {name: 'Mary', age: 16, id:'oiwuqe'},
     ],
-    showPeople: false
+    showPeople: false,
+    toggleClickCounter: 0,
   }
 
   showPeopleHandler = () => {
     const doesShow = this.state.showPeople;
-    this.setState({showPeople: !doesShow});
+    // INCORRECT:
+    // setState is executed asynchronously by React, so we can't rely
+    // on this.state being the same.
+    //
+    // this.setState({
+    //   showPeople: !doesShow,
+    //   toggleClickCounter: this.state.toggleClickCounter + 1});
+
+    // CORRECT: functional form
+    this.setState((prevState, props) => {
+      return {
+        showPeople: !doesShow,
+        toggleClickCounter: prevState.toggleClickCounter + 1
+      }
+    });
   }
 
   deletePersonHandler = (personIndex) => {
