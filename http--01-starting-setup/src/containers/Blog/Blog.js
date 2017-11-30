@@ -29,6 +29,7 @@ class Blog extends Component {
     this.setState({selectedPostId: postId})
   }
 
+
   render () {
       const posts = this.state.posts.map(post => {
           return <Post
