@@ -20,16 +20,25 @@ const INGREDIENT_PRICES = {
 class BurgerBuilder extends Component {
 
   state = {
-    ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-    },
+    ingredients: null,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false,
+    error: false,
+  }
+
+  componentDidMount () {
+    axios.get('/ingredients.json')
+    /* if `catch` block is absent, `then` block is executed
+    even if error occured.
+    */
+      .then(resp => {
+        this.setState({ingredients: resp.data})
+      })
+      .catch (err => {
+        this.setState({error: true})
+      });
   }
 
   purchaseHandler = () => {
@@ -95,28 +104,28 @@ class BurgerBuilder extends Component {
   }
 
   render = () => {
-    const disabledInfo = {...this.state.ingredients};
-    for (let key in disabledInfo){
-      disabledInfo[key] = disabledInfo[key] <= 0;
-    }
-    let modalContent = (
-            <OrderSummary
-              price={this.state.totalPrice}
-              ingredients={this.state.ingredients}
-              purchaseCancelled={this.purchaseCancelHandler}
-              purchaseContinued={this.purchaseContinueHandler}
-              />
-            );
-    if (this.state.loading) {
-      modalContent = <Spinner />
-    }
+    let modalContent = null;
+    let burger = this.state.error ? <p>Can't load ingredients :( </p> : <Spinner />;
 
-    return (
-      <Aux>
-        <Modal
-          show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}>
-          {modalContent}</Modal>
+    if (this.state.ingredients){
+      if (this.state.loading) {
+        modalContent = <Spinner />
+      } else {
+        modalContent = (
+          <OrderSummary
+            price={this.state.totalPrice}
+            ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+            />
+          );
+      }
+      const disabledInfo = {...this.state.ingredients};
+      for (let key in disabledInfo){
+        disabledInfo[key] = disabledInfo[key] <= 0;
+      }
+      burger = (
+        <Aux>
         <Burger ingredients={this.state.ingredients}/>
         <BuildControls
           price={this.state.totalPrice}
@@ -125,6 +134,16 @@ class BurgerBuilder extends Component {
           purchasable={this.state.purchasable}
           purchase={this.purchaseHandler}
           disabled={disabledInfo}/>
+        </Aux>
+      );
+    }
+    return (
+      <Aux>
+        <Modal
+          show={this.state.purchasing}
+          modalClosed={this.purchaseCancelHandler}>
+          {modalContent}</Modal>
+          {burger}
       </Aux>
     );
   }
