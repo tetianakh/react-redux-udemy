@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import { Route } from 'react-router-dom';
 
-import FullPost from './FullPost/FullPost';
-import NewPost from './NewPost/NewPost';
 import './Blog.css';
 import Posts from './Posts/Posts'
 
@@ -19,12 +17,8 @@ class Blog extends Component {
                 </ul>
               </nav>
             </header>
-                <section>
-                    <Posts />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+            <Route path="/" exact render={ () => <h1>Home</h1> }/> {/* only renders on / */}
+            <Route path="/" render={ () => <h1>Home2</h1> }/> {/* renders always (every path starts with /) */}
             </div>
         );
     }
