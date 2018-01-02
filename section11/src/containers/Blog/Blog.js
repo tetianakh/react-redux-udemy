@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
 
 import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost';
+import FullPost from './FullPost/FullPost';
 import './Blog.css';
 
 class Blog extends Component {
@@ -13,10 +14,10 @@ class Blog extends Component {
             <header>
               <nav>
                 <ul>
+                  {/* can change the name of applied class when the link is active: */}
                   <li><NavLink
                     to="/"
                     exact
-                    {/* can change the name of applied class when the link is active: */}
                     activeClassName='active'
                     >Home</NavLink ></li>
                   <li><NavLink to={{
@@ -27,8 +28,11 @@ class Blog extends Component {
                 </ul>
               </nav>
             </header>
-            <Route path="/" exact component={Posts} />
-            <Route path="/new-post" exact component={NewPost} />
+            <Switch>
+              <Route path="/" exact component={Posts} />
+              <Route path="/new-post" exact component={NewPost} />
+              <Route path="/:postId" exact component={FullPost} />
+            </Switch>
             </div>
         );
     }
