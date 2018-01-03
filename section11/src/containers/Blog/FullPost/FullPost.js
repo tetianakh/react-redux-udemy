@@ -9,16 +9,24 @@ class FullPost extends Component {
     }
 
     componentDidMount () {
-        const postId = this.getId();
-        if ( postId ) {
-            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
-                axios.get( '/posts/' + postId )
-                    .then( response => {
-                        // console.log(response);
-                        this.setState( { loadedPost: response.data } );
-                    } );
-            }
+      this.loadPost();
+    }
+
+    componentDidUpdate () {
+      this.loadPost();
+    }
+
+    loadPost () {
+      const postId = this.getId();
+      if (postId) {
+        if ( this.state.loadedPost === null || (this.state.loadedPost.id !== postId) ) {
+            axios.get( '/posts/' + postId )
+                .then( response => {
+                    // console.log(response);
+                    this.setState( { loadedPost: response.data } );
+                } );
         }
+      }
     }
 
     deletePostHandler = () => {
@@ -29,7 +37,7 @@ class FullPost extends Component {
     }
 
     getId () {
-      return this.props.match.params.postId;
+      return parseInt(this.props.match.params.postId, 10);
     }
 
     render () {

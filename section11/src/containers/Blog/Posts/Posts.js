@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import { Route } from 'react-router-dom';
 
 import Post from '../../../components/Post/Post';
 import axios from '../../../axios';
+import FullPost from '../FullPost/FullPost';
 import './Posts.css';
 
 class Posts extends Component {
@@ -43,11 +45,14 @@ class Posts extends Component {
               clicked={() => this.postSelectedHandler(post.id)} />;
         });
     }
-
+    console.log(this.props);
     return (
-      <section className="Posts">
-          {posts}
-      </section>
+      <div>
+        <section className="Posts">
+            {posts}
+        </section>
+        <Route path={this.props.match.url + ":postId"} exact component={FullPost} />
+      </div>
     );
   }
 
