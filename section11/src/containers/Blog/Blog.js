@@ -29,7 +29,7 @@ class Blog extends Component {
             <Switch>
               <Route path="/new-post" exact component={NewPost} />
               <Route path="/posts" component={Posts} />
-              {/* Rediretion inside of Switch:
+              {/* Rediretion inside of Switch.
                 The `from` param can be omitted to ale=ways redirect. */}
               <Redirect from="/" to="posts" />
             </Switch>
