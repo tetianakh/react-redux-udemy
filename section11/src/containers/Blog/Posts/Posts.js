@@ -30,7 +30,7 @@ class Posts extends Component {
   }
   postSelectedHandler = (id) => {
     this.props.history.push({
-      pathname: "/" + id
+      pathname: "/posts/" + id
     })
   }
 
@@ -51,7 +51,7 @@ class Posts extends Component {
         <section className="Posts">
             {posts}
         </section>
-        <Route path={this.props.match.url + ":postId"} exact component={FullPost} />
+        <Route path={this.props.match.url + "/:postId"} exact component={FullPost} />
       </div>
     );
   }
