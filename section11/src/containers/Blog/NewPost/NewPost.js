@@ -21,18 +21,26 @@ class NewPost extends Component {
         axios.post('/posts', data)
             .then(response => {
                 console.log(response);
-                this.setState({submitted: true});
+                // this.setState({submitted: true});
+
+                /**
+                 * Alrernative way to leave the page after submit.
+                 * Can also `replace` instead of `push` to emulate
+                 * redirect behaviour.
+                 */
+                this.props.history.push("/posts");
+
             });
     }
 
     render () {
-      if (this.state.submitted) {
-        /**
-         * Redirecting outside of Switch statement.
-         * Cannot use `from` here.
-         */
-        return <Redirect to="/posts" />;
-      }
+      // if (this.state.submitted) {
+      //   /**
+      //    * Redirecting outside of Switch statement.
+      //    * Cannot use `from` here.
+      //    */
+      //   return <Redirect to="/posts" />;
+      // }
         return (
             <div className="NewPost">
                 <h1>Add a Post</h1>
