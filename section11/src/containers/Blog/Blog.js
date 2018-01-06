@@ -30,8 +30,15 @@ class Blog extends Component {
               <Route path="/new-post" exact component={NewPost} />
               <Route path="/posts" component={Posts} />
               {/* Rediretion inside of Switch.
+                `from` acts as a prefix.
                 The `from` param can be omitted to ale=ways redirect. */}
-              <Redirect from="/" to="posts" />
+              {/* <Redirect from="/" to="posts" /> */}
+
+              {/**
+               * Route without `path` will catch any rout that was not handled
+               * prior to it => 404 handling
+               */}
+              <Route render={() => <h1>"Oops... Not found :("</h1>} />
             </Switch>
             </div>
         );
