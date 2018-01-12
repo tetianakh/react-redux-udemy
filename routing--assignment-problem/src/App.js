@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import Courses from './containers/Courses/Courses';
-import Course from './containers/Course/Course';
 import Users from './containers/Users/Users';
 
 class App extends Component {
@@ -30,10 +29,10 @@ class App extends Component {
         </ol>
       </div>
       <Switch>
-      <Route path='/courses' exact component={Courses}></Route>
+      <Route path='/courses'  component={Courses}></Route>
       <Route path='/users' exact component={Users}></Route>
-      <Route path={"/courses/:postId/?title=:postTitle"} exact component={Course} />
-      <Route path={"/"} render={() => {return "404. Not found :("}} />
+      <Redirect from="/all-courses" to="courses" />
+      <Route  render={() => {return "404. Not found :("}} />
       </Switch>
     </div>
     );

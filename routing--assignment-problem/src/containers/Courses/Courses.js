@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Route, NavLink, Switch } from 'react-router-dom';
+
 import './Courses.css';
+import Course from '../Course/Course';
 
 
 class Courses extends Component {
@@ -9,16 +12,18 @@ class Courses extends Component {
             { id: 2, title: 'Vue - The Complete Guide' },
             { id: 3, title: 'PWA - The Complete Guide' }
         ],
+
     }
 
-    courseSelectedHandle = (selectedCourseId, selectedCourseTitle) => {
+    courseSelectedHandle = (selectedCourse) => {
       this.props.history.push({
-        pathname: "/courses/" + selectedCourseId + "/?title=" + selectedCourseTitle
+        pathname: "/courses/" + selectedCourse.id
       })
 
     }
 
     render () {
+
         return (
             <div>
                 <h1>Amazing Udemy Courses</h1>
@@ -29,10 +34,11 @@ class Courses extends Component {
                               <article
                                 className="Course"
                                 key={course.id}
-                                onClick={() => this.courseSelectedHandle(course.id, course.title)}>{course.title}</article>)
+                                onClick={() => this.courseSelectedHandle(course)}>{course.title}</article>)
                         } )
                     }
                 </section>
+                <Route path={"/courses/:postId"} exact render={(props) => <Course courses={this.state.courses} {...props} />} />
             </div>
         );
     }
